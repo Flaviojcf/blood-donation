@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="Validators\" />
-    <Folder Include="Queries\" />
   </ItemGroup>
 
   <ItemGroup>
