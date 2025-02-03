@@ -5,7 +5,7 @@ namespace BloodDonationSystem.Domain.Entities
 {
     public sealed class Address : BaseEntity
     {
-        public Address(string street, int number, string city, string state, string cep)
+        public Address(string street, int number, string city, string state, string cep, Guid donorId)
         {
             ValidateDomain(street, number, city, state, cep);
             Street = street;
@@ -13,6 +13,7 @@ namespace BloodDonationSystem.Domain.Entities
             City = city;
             State = state;
             Cep = cep;
+            DonorId = donorId;
         }
 
         public string Street { get; private set; }
@@ -20,6 +21,9 @@ namespace BloodDonationSystem.Domain.Entities
         public string City { get; private set; }
         public string State { get; private set; }
         public string Cep { get; private set; }
+
+        public Guid DonorId { get; private set; }
+        public Donor? Donor { get; private set; }
 
         public void Update(string street, int number, string city, string state, string cep)
         {

@@ -14,7 +14,6 @@ namespace BloodDonationSystem.Application
         private static IServiceCollection AddServices(this IServiceCollection services)
         {
 
-
             return services;
         }
     }

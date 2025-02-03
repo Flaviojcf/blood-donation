@@ -25,6 +25,9 @@ namespace BloodDonationSystem.Application.Validators.Address
             RuleFor(x => x.Cep)
                 .NotEmpty().WithMessage("CEP é obrigatório.")
                 .Matches(@"^\d{5}-\d{3}$").WithMessage("CEP deve estar no formato 12345-678.");
+
+            RuleFor(x => x.DonorId)
+               .NotEmpty().WithMessage("O Id do doardo é obrigatório.");
         }
     }
 }
