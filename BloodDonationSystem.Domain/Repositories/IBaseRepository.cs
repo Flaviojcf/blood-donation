@@ -4,7 +4,7 @@
     {
         Task CreateAsync(T entity);
         Task<List<T>> GetAllAsync();
-        Task<T> GetByIdAsync(int id);
+        Task<T> GetByIdAsync(Guid id);
         Task SaveChangesAsync();
     }
 }
