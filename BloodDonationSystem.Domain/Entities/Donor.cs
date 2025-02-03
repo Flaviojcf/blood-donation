@@ -6,9 +6,9 @@ namespace BloodDonationSystem.Domain.Entities
 {
     public sealed class Donor : BaseEntity
     {
-        public Donor(string fullName, string email, DateTime birthDate, GenderType genderType, decimal weight, BloodType bloodType, RhFactorType rhFactorType, Guid addressId)
+        public Donor(string fullName, string email, DateTime birthDate, GenderType genderType, decimal weight, BloodType bloodType, RhFactorType rhFactorType)
         {
-            ValidateDomain(fullName, email, birthDate, genderType, weight, bloodType, rhFactorType, addressId);
+            ValidateDomain(fullName, email, birthDate, genderType, weight, bloodType, rhFactorType);
             FullName = fullName;
             Email = email;
             BirthDate = birthDate;
@@ -16,7 +16,6 @@ namespace BloodDonationSystem.Domain.Entities
             Weight = weight;
             BloodType = bloodType;
             RhFactorType = rhFactorType;
-            AddressId = addressId;
         }
 
         public string FullName { get; private set; }
@@ -27,14 +26,11 @@ namespace BloodDonationSystem.Domain.Entities
         public BloodType BloodType { get; private set; }
         public RhFactorType RhFactorType { get; private set; }
 
-
-        public Guid AddressId { get; private set; }
         public Address? Address { get; private set; }
 
-
-        public void Update(string fullName, string email, DateTime birthDate, GenderType genderType, decimal weight, BloodType bloodType, RhFactorType rhFactorType, Guid addressId)
+        public void Update(string fullName, string email, DateTime birthDate, GenderType genderType, decimal weight, BloodType bloodType, RhFactorType rhFactorType)
         {
-            ValidateDomain(fullName, email, birthDate, genderType, weight, bloodType, rhFactorType, addressId);
+            ValidateDomain(fullName, email, birthDate, genderType, weight, bloodType, rhFactorType);
             FullName = fullName;
             Email = email;
             BirthDate = birthDate;
@@ -42,10 +38,9 @@ namespace BloodDonationSystem.Domain.Entities
             Weight = weight;
             BloodType = bloodType;
             RhFactorType = rhFactorType;
-            AddressId = addressId;
         }
 
-        private static void ValidateDomain(string fullName, string email, DateTime? birthDate, GenderType genderType, decimal weight, BloodType bloodType, RhFactorType rhFactorType, Guid? addressId)
+        private static void ValidateDomain(string fullName, string email, DateTime? birthDate, GenderType genderType, decimal weight, BloodType bloodType, RhFactorType rhFactorType)
         {
             DomainException.When(string.IsNullOrEmpty(fullName), string.Format(DomainMessageConstants.messageFieldIsRequired, "fullName"));
             DomainException.When(string.IsNullOrEmpty(email), string.Format(DomainMessageConstants.messageFieldIsRequired, "email"));
@@ -54,7 +49,6 @@ namespace BloodDonationSystem.Domain.Entities
             DomainException.When(weight <= 0, string.Format(DomainMessageConstants.messageFieldIsRequiredAndGreaterThan, "weight", 0));
             DomainException.When(!Enum.IsDefined(typeof(BloodType), bloodType), string.Format(DomainMessageConstants.messageFieldIsRequired, "bloodType"));
             DomainException.When(!Enum.IsDefined(typeof(RhFactorType), rhFactorType), string.Format(DomainMessageConstants.messageFieldIsRequired, "rhFactor"));
-            DomainException.When(addressId == Guid.Empty, string.Format(DomainMessageConstants.messageFieldIsRequired, "addressId"));
         }
 
     }

@@ -9,6 +9,8 @@ namespace BloodDonationSystem.Infrastructure.Persistance
         public BloodDonationDbContext(DbContextOptions<BloodDonationDbContext> options) : base(options) { }
 
         public DbSet<Address> Address { get; set; }
+        public DbSet<Donor> Donor { get; set; }
+
 
 
 
