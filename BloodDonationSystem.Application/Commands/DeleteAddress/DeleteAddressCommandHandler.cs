@@ -17,7 +17,7 @@ namespace BloodDonationSystem.Application.Commands.DeleteAddress
             address?.Deactivate();
 
             await _addressRepository.SaveChangesAsync();
-            ''
+
             return Unit.Value;
         }
     }

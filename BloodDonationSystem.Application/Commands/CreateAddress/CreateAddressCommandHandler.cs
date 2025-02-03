@@ -14,6 +14,7 @@ namespace BloodDonationSystem.Application.Commands.CreateAddress
         public async Task<Guid> Handle(CreateAddressCommand request, CancellationToken cancellationToken)
         {
             var address = new Address(request.Street, request.Number, request.City, request.State, request.Cep);
+
             await _addressRepository.CreateAsync(address);
 
             return address.Id;
