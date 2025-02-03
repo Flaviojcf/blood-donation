@@ -1,4 +1,5 @@
-﻿using BloodDonationSystem.Application.Queries.GetAddressById;
+﻿using BloodDonationSystem.Application.Commands.CreateAddress;
+using BloodDonationSystem.Application.Queries.GetAddressById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,6 +30,21 @@ namespace BloodDonationSystem.API.Controllers
                 }
 
                 return Ok(address);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateAddressCommand createAddressCommand)
+        {
+            try
+            {
+                var id = await _mediator.Send(createAddressCommand);
+
+                return CreatedAtAction(nameof(GetById), new { id }, createAddressCommand);
             }
             catch (Exception ex)
             {
