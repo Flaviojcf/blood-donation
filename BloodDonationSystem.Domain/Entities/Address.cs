@@ -3,7 +3,7 @@ using BloodDonationSystem.Domain.Exceptions;
 
 namespace BloodDonationSystem.Domain.Entities
 {
-    public sealed class Address
+    public sealed class Address : BaseEntity
     {
         public Address(string street, int number, string city, string state, string cep)
         {
