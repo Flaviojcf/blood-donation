@@ -27,6 +27,8 @@ namespace BloodDonationSystem.Domain.Entities
         public RhFactorType RhFactorType { get; private set; }
 
         public Address? Address { get; private set; }
+        public IEnumerable<Donation>? Donations { get; private set; }
+
 
         public void Update(string fullName, string email, DateTime birthDate, GenderType genderType, decimal weight, BloodType bloodType, RhFactorType rhFactorType)
         {

@@ -16,7 +16,7 @@ namespace BloodDonationSystem.Infrastructure.Persistance.Repositories
         {
             await _bloodDonationDbContext.Donor.AddAsync(entity);
 
-            await _bloodDonationDbContext.SaveChangesAsync();
+            await SaveChangesAsync();
         }
 
         public async Task<List<Donor>> GetAllAsync()
@@ -31,7 +31,7 @@ namespace BloodDonationSystem.Infrastructure.Persistance.Repositories
 
         public async Task<Donor> GetByIdAsync(Guid id)
         {
-            return await _bloodDonationDbContext.Donor.Include(d => d.Address).SingleOrDefaultAsync(x => x.Id == id);
+            return await _bloodDonationDbContext.Donor.Include(d => d.Address).Include(d => d.Donations).SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task SaveChangesAsync()

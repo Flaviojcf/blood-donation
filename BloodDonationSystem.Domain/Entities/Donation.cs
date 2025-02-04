@@ -5,10 +5,10 @@ namespace BloodDonationSystem.Domain.Entities
 {
     public sealed class Donation : BaseEntity
     {
-        public Donation(DateTime donationDate, int quantityML, Guid donorId)
+        public Donation(int quantityML, Guid donorId)
         {
-            ValidateDomain(donationDate, quantityML, donorId);
-            DonationDate = donationDate;
+            ValidateDomain(quantityML, donorId);
+            DonationDate = DateTime.Now;
             QuantityML = quantityML;
             DonorId = donorId;
         }
@@ -19,17 +19,16 @@ namespace BloodDonationSystem.Domain.Entities
         public Guid DonorId { get; private set; }
         public Donor? Donor { get; private set; }
 
-        public void Update(DateTime donationDate, int quantityML, Guid donorId)
+        public void Update(int quantityML, Guid donorId)
         {
-            ValidateDomain(donationDate, quantityML, donorId);
-            DonationDate = donationDate;
+            ValidateDomain(quantityML, donorId);
+            DonationDate = DateTime.Now;
             QuantityML = quantityML;
             DonorId = donorId;
         }
 
-        private static void ValidateDomain(DateTime donationDate, int quantityML, Guid donorId)
+        private static void ValidateDomain(int quantityML, Guid donorId)
         {
-            DomainException.When(donationDate == DateTime.MinValue, string.Format(DomainMessageConstants.messageFieldIsRequired, "donationDate"));
             DomainException.When(quantityML <= 0, string.Format(DomainMessageConstants.messageFieldIsRequiredAndGreaterThan, "quantityML", 0));
             DomainException.When(donorId == Guid.Empty, string.Format(DomainMessageConstants.messageFieldIsRequired, "donorId"));
         }

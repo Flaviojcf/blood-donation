@@ -1,8 +1,7 @@
 ﻿namespace BloodDonationSystem.Domain.Services.Interfaces
 {
-    public interface IDonorValidationService
+    public interface IDonationValidationService
     {
-        Task<bool> IsDonorExistsAsync(Guid donorId);
-        Task<bool> IsDonorEmailAlreadyExistsAsync(string donorEmail);
+        bool IsLegalForDonation(int quantityML);
     }
 }
