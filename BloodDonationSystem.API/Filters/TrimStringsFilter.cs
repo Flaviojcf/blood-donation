@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace BloodDonationSystem.API.Filter
+namespace BloodDonationSystem.API.Filters
 {
     public class TrimStringsActionFilter : IActionFilter
     {
