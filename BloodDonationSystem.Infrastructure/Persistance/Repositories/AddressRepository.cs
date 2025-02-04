@@ -29,6 +29,20 @@ namespace BloodDonationSystem.Infrastructure.Persistance.Repositories
             return await _bloodDonationDbContext.Address.SingleOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<Address> GetByDonorIdAsync(Guid DonorId)
+        {
+            return await _bloodDonationDbContext.Address.SingleOrDefaultAsync(x => x.DonorId == DonorId);
+        }
+
+        public async Task<bool> IsDonorAlreadyHasAddressAsync(Guid donorId)
+        {
+            var address = await GetByDonorIdAsync(donorId);
+
+            if (address == null) return false;
+
+            return true;
+        }
+
         public async Task SaveChangesAsync()
         {
             await _bloodDonationDbContext.SaveChangesAsync();
