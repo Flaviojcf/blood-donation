@@ -16,7 +16,7 @@ namespace BloodDonationSystem.Infrastructure.Persistance.Repositories
         {
             await _bloodDonationDbContext.Address.AddAsync(entity);
 
-            await _bloodDonationDbContext.SaveChangesAsync();
+            await SaveChangesAsync();
         }
 
         public async Task<List<Address>> GetAllAsync()

@@ -24,7 +24,10 @@ namespace BloodDonationSystem.Infrastructure
         {
             services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<IDonorRepository, DonorRepository>();
+            services.AddScoped<IDonationRepository, DonationRepository>();
             services.AddScoped<IDonorValidationService, DonorValidationService>();
+            services.AddScoped<IDonationValidationService, DonationValidationService>();
+
             services.AddScoped<ICepService, ViaCepService>();
 
 

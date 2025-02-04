@@ -3,6 +3,7 @@ using BloodDonationSystem.Application.Commands.CreateAddress;
 using BloodDonationSystem.Application.Validators.Address;
 using FluentValidation.AspNetCore;
 using MediatR;
+using System.Text.Json.Serialization;
 
 namespace BloodDonationSystem.API
 {
@@ -12,6 +13,7 @@ namespace BloodDonationSystem.API
         {
             services.AddFilters();
             services.AddMediatR();
+            services.IgnoreCycle();
             return services;
         }
 
@@ -31,6 +33,16 @@ namespace BloodDonationSystem.API
             }).AddFluentValidation(fv =>
             {
                 fv.RegisterValidatorsFromAssemblyContaining<CreateAddressCommandValidator>();
+            });
+
+            return services;
+        }
+
+        private static IServiceCollection IgnoreCycle(this IServiceCollection services)
+        {
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
             });
 
             return services;
