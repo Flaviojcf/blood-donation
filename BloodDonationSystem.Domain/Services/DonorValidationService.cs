@@ -3,15 +3,9 @@ using BloodDonationSystem.Domain.Services.Interfaces;
 
 namespace BloodDonationSystem.Domain.Services
 {
-    public class DonorValidationService : IDonorValidationService
+    public class DonorValidationService(IDonorRepository donorRepository) : IDonorValidationService
     {
-        private readonly IDonorRepository _donorRepository;
-
-        public DonorValidationService(IDonorRepository donorRepository)
-        {
-            _donorRepository = donorRepository;
-        }
-
+        private readonly IDonorRepository _donorRepository = donorRepository;
 
         public async Task<bool> IsDonorExistsAsync(Guid donorId)
         {

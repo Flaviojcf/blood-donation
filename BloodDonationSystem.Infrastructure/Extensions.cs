@@ -1,6 +1,8 @@
-﻿using BloodDonationSystem.Domain.Repositories;
+﻿using BloodDonationSystem.Application.Services;
+using BloodDonationSystem.Domain.Repositories;
 using BloodDonationSystem.Domain.Services;
 using BloodDonationSystem.Domain.Services.Interfaces;
+using BloodDonationSystem.Infrastructure.ExternalServices.ViaCep;
 using BloodDonationSystem.Infrastructure.Persistance;
 using BloodDonationSystem.Infrastructure.Persistance.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +25,7 @@ namespace BloodDonationSystem.Infrastructure
             services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<IDonorRepository, DonorRepository>();
             services.AddScoped<IDonorValidationService, DonorValidationService>();
+            services.AddScoped<ICepService, ViaCepService>();
 
 
             return services;
