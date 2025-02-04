@@ -1,5 +1,6 @@
 ﻿using BloodDonationSystem.Domain.Repositories;
 using BloodDonationSystem.Domain.Services;
+using BloodDonationSystem.Domain.Services.Interfaces;
 using BloodDonationSystem.Infrastructure.Persistance;
 using BloodDonationSystem.Infrastructure.Persistance.Repositories;
 using Microsoft.EntityFrameworkCore;
