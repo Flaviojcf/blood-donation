@@ -11,9 +11,6 @@ namespace BloodDonationSystem.Infrastructure.Persistance
         public DbSet<Address> Address { get; set; }
         public DbSet<Donor> Donor { get; set; }
 
-
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

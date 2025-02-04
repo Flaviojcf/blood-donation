@@ -1,6 +1,6 @@
 ﻿using BloodDonationSystem.Domain.Entities;
 using BloodDonationSystem.Domain.Repositories;
-using BloodDonationSystem.Domain.Services;
+using BloodDonationSystem.Domain.Services.Interfaces;
 using MediatR;
 
 namespace BloodDonationSystem.Application.Commands.CreateAddress
@@ -16,7 +16,7 @@ namespace BloodDonationSystem.Application.Commands.CreateAddress
         }
         public async Task<Guid> Handle(CreateAddressCommand request, CancellationToken cancellationToken)
         {
-            if (!await _donorValidationService.DonorExistsAsync(request.DonorId))
+            if (!await _donorValidationService.IsDonorExistsAsync(request.DonorId))
             {
                 throw new ArgumentException("O doador informado não existe.");
             }
