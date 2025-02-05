@@ -1,4 +1,5 @@
-﻿using BloodDonationSystem.Domain.Entities;
+﻿using BloodDonationSystem.Application.Services;
+using BloodDonationSystem.Domain.Entities;
 using BloodDonationSystem.Domain.Events;
 using BloodDonationSystem.Domain.Exceptions;
 using BloodDonationSystem.Domain.Repositories;
@@ -10,11 +11,14 @@ namespace BloodDonationSystem.Application.Notifications
     {
         private readonly IBloodStockRepository _bloodStockRepository;
         private readonly IDonorRepository _donorRepository;
+        private readonly int minQuantity = 1680;
+        private readonly IEmailService _emailService;
 
-        public DonationCreatedNotificationHandler(IBloodStockRepository bloodStockRepository, IDonorRepository donorRepository)
+        public DonationCreatedNotificationHandler(IBloodStockRepository bloodStockRepository, IDonorRepository donorRepository, IEmailService emailService)
         {
             _bloodStockRepository = bloodStockRepository;
             _donorRepository = donorRepository;
+            _emailService = emailService;
         }
 
         public async Task Handle(DonationCreatedEvent notification, CancellationToken cancellationToken)
@@ -41,10 +45,10 @@ namespace BloodDonationSystem.Application.Notifications
                 await _bloodStockRepository.SaveChangesAsync();
             }
 
-            // Implementar notificação para o e-mail do adm
-            //if (bloodStock.QuantityML < bloodStock.MinimumQuantity)
-            //{
-            //}
+            if (bloodStock != null && bloodStock.QuantityML >= minQuantity)
+            {
+                await _emailService.SendAsync(donor.Email, "Meta atingida!!", $"Graças a sua doação, atingimos a quantidade mínima de {minQuantity}ML para o estoque, obrigado! ");
+            }
         }
     }
 }
