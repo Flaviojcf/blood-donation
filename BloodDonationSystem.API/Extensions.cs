@@ -32,6 +32,7 @@ namespace BloodDonationSystem.API
                 options.Filters.Add(typeof(ValidationFilter));
             }).AddFluentValidation(fv =>
             {
+                fv.DisableDataAnnotationsValidation = true;
                 fv.RegisterValidatorsFromAssemblyContaining<CreateAddressCommandValidator>();
             });
 

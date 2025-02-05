@@ -1,5 +1,6 @@
 ﻿using BloodDonationSystem.Application.Services;
 using BloodDonationSystem.Domain.Entities;
+using BloodDonationSystem.Domain.Exceptions;
 using BloodDonationSystem.Domain.Repositories;
 using BloodDonationSystem.Domain.Services.Interfaces;
 using MediatR;
@@ -21,12 +22,12 @@ namespace BloodDonationSystem.Application.Commands.CreateAddress
         {
             if (!await _donorValidationService.IsDonorExistsAsync(request.DonorId))
             {
-                throw new ArgumentException("O doador informado não existe.");
+                throw new NotFoundException($"O doador com o id '{request.DonorId}' não existe.");
             }
 
             if (await _addressRepository.IsDonorAlreadyHasAddressAsync(request.DonorId))
             {
-                throw new ArgumentException("O doador informado já possui endereço cadastrado.");
+                throw new ValidationException($"O doador com o id '{request.DonorId}' já possui endereço cadastrado.");
             }
 
             var addressDto = await _cepService.GetAddressByCepAsync(request.Cep);
