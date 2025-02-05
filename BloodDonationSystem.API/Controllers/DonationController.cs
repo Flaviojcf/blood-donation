@@ -1,5 +1,5 @@
 ﻿using BloodDonationSystem.Application.Commands.CreateDonation;
-using BloodDonationSystem.Application.Queries.GetAddressById;
+using BloodDonationSystem.Application.Queries.GetDonationById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,11 +19,19 @@ namespace BloodDonationSystem.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var getAddressByIdQuery = new GetAddressByIdQuery(id);
-            var address = await _mediator.Send(getAddressByIdQuery);
+            var getDonationByIdQuery = new GetDonationByIdQuery(id);
+            var donation = await _mediator.Send(getDonationByIdQuery);
 
-            return Ok(address);
+            return Ok(donation);
         }
+
+        //[HttpGet]
+        //public async Task<IActionResult> GetAll(string query)
+        //{
+        //    var getAllDonationQuery = new GetAllDonationQuery(query);
+        //    var donation = await _mediator.Send(getAllDonationQuery);
+        //    return Ok(donation);
+        //}
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateDonationCommand createDonationCommand)

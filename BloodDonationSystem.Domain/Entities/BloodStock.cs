@@ -18,11 +18,9 @@ namespace BloodDonationSystem.Domain.Entities
         public RhFactorType RhFactorType { get; private set; }
         public int QuantityML { get; private set; }
 
-        public void Update(BloodType bloodType, RhFactorType rhFactorType, int quantityML)
+        public void Update(int quantityML)
         {
-            ValidateCreateDomain(bloodType, rhFactorType, quantityML);
-            BloodType = bloodType;
-            RhFactorType = rhFactorType;
+            ValidateUpdateDomain(quantityML);
             QuantityML = quantityML;
         }
 
@@ -30,6 +28,11 @@ namespace BloodDonationSystem.Domain.Entities
         {
             DomainException.When(!Enum.IsDefined(typeof(BloodType), bloodType), string.Format(DomainMessageConstants.messageFieldIsRequired, "bloodType"));
             DomainException.When(!Enum.IsDefined(typeof(RhFactorType), rhFactor), string.Format(DomainMessageConstants.messageFieldIsRequired, "rhFactor"));
+            DomainException.When(quantityML <= 0, string.Format(DomainMessageConstants.messageFieldIsRequiredAndGreaterThan, "quantityML", 0));
+        }
+
+        private static void ValidateUpdateDomain(int quantityML)
+        {
             DomainException.When(quantityML <= 0, string.Format(DomainMessageConstants.messageFieldIsRequiredAndGreaterThan, "quantityML", 0));
         }
     }

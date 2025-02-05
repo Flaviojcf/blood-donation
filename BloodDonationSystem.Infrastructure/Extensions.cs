@@ -17,6 +17,7 @@ namespace BloodDonationSystem.Infrastructure
         {
             services.AddSqlServer(configuration);
             services.AddRepositories();
+            services.AddServices();
             return services;
         }
 
@@ -25,11 +26,8 @@ namespace BloodDonationSystem.Infrastructure
             services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<IDonorRepository, DonorRepository>();
             services.AddScoped<IDonationRepository, DonationRepository>();
-            services.AddScoped<IDonorValidationService, DonorValidationService>();
-            services.AddScoped<IDonationValidationService, DonationValidationService>();
-
-            services.AddScoped<ICepService, ViaCepService>();
-
+            services.AddScoped<IDonationRepository, DonationRepository>();
+            services.AddScoped<IBloodStockRepository, BloodStockRepository>();
 
             return services;
         }
@@ -41,5 +39,12 @@ namespace BloodDonationSystem.Infrastructure
             return services;
         }
 
+        private static IServiceCollection AddServices(this IServiceCollection services)
+        {
+            services.AddScoped<IDonorValidationService, DonorValidationService>();
+            services.AddScoped<IDonationValidationService, DonationValidationService>();
+            services.AddScoped<ICepService, ViaCepService>();
+            return services;
+        }
     }
 }

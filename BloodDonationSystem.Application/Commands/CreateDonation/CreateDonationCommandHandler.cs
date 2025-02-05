@@ -11,12 +11,14 @@ namespace BloodDonationSystem.Application.Commands.CreateDonation
         private readonly IDonationRepository _donationRepository;
         private readonly IDonorValidationService _donorValidationService;
         private readonly IDonationValidationService _donationValidationService;
+        private readonly IMediator _mediator;
 
-        public CreateDonationCommandHandler(IDonationRepository donationRepository, IDonorValidationService donorValidationService, IDonationValidationService donationValidationService)
+        public CreateDonationCommandHandler(IDonationRepository donationRepository, IDonorValidationService donorValidationService, IDonationValidationService donationValidationService, IMediator mediator)
         {
             _donationRepository = donationRepository;
             _donorValidationService = donorValidationService;
             _donationValidationService = donationValidationService;
+            _mediator = mediator;
         }
 
         public async Task<Guid> Handle(CreateDonationCommand request, CancellationToken cancellationToken)
@@ -37,6 +39,24 @@ namespace BloodDonationSystem.Application.Commands.CreateDonation
             var donation = new Donation(request.QuantityML, request.DonorId);
 
             await _donationRepository.CreateAsync(donation);
+
+            try
+            {
+                foreach (var domainEvent in donation.GetDomainEvents().ToList())
+                {
+                    await _mediator.Publish(domainEvent, cancellationToken);
+                }
+                donation.ClearDomainEvents();
+            }
+            catch (Exception ex)
+            {
+                // Log do erro
+                Console.WriteLine($"Erro ao publicar evento: {ex.Message}");
+                throw;
+            }
+
+
+            donation.ClearDomainEvents();
 
             return donation.Id;
         }
