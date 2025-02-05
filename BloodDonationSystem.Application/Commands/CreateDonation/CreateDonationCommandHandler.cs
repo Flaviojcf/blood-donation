@@ -25,8 +25,10 @@ namespace BloodDonationSystem.Application.Commands.CreateDonation
 
             if (!validationResult.IsValid)
             {
-                throw new ValidationException($"Error: {string.Join("; ", validationResult.Errors)}");
+                var errors = validationResult.Errors.ToList();
+                throw new ValidationException(errors);
             }
+
 
             if (!_donationValidationService.ValidateDonationQuantity(request.QuantityML))
             {
