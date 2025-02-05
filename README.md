@@ -26,7 +26,7 @@ O Sistema de Doação de Sangue é uma aplicação abrangente projetada para ger
 -	BloodDonationSystem.API: Camada de API para expor endpoints para interagir com o sistema.
 
 
-## Contact
+## Contato
 
 [@Flaviojcf](mailto:flaviojcostafilho@gmail.com)
 
