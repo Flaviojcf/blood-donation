@@ -1,5 +1,6 @@
 ﻿using BloodDonationSystem.Application.Commands.CreateAddress;
 using BloodDonationSystem.Application.Queries.GetAddressById;
+using BloodDonationSystem.Domain.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,6 +31,10 @@ namespace BloodDonationSystem.API.Controllers
                 }
 
                 return Ok(address);
+            }
+            catch (NotFoundException ex)
+            {
+                throw new NotFoundException(ex.Message);
             }
             catch (Exception ex)
             {
