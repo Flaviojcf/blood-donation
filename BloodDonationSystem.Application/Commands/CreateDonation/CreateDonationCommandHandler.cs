@@ -29,7 +29,6 @@ namespace BloodDonationSystem.Application.Commands.CreateDonation
                 throw new ValidationException(errors);
             }
 
-
             if (!_donationValidationService.ValidateDonationQuantity(request.QuantityML))
             {
                 throw new ValidationException("A quantidade para doação deve estar entre 420ml e 470ml.");

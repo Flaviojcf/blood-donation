@@ -24,7 +24,7 @@ namespace BloodDonationSystem.Application.Commands.CreateAddress
 
             if (!validationResult.IsValid)
             {
-                throw new ValidationException($"Erro: {string.Join("; ", validationResult.Errors)}");
+                throw new ValidationException($"{string.Join("; ", validationResult.Errors)}");
             }
 
             var addressDto = await _cepService.GetAddressByCepAsync(request.Cep);

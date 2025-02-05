@@ -23,7 +23,7 @@ namespace BloodDonationSystem.Application.Commands.CreateDonor
 
             if (!validationResult.IsValid)
             {
-                throw new ValidationException($"Erro: {string.Join("; ", validationResult.Errors)}");
+                throw new ValidationException($"{string.Join("; ", validationResult.Errors)}");
             }
 
             var donor = new Donor(request.FullName, request.Email, request.BirthDate, request.GenderType, request.Weight, request.BloodType, request.RhFactorType);

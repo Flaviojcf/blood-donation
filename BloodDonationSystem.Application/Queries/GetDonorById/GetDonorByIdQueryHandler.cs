@@ -1,4 +1,5 @@
 ﻿using BloodDonationSystem.Domain.Entities;
+using BloodDonationSystem.Domain.Exceptions;
 using BloodDonationSystem.Domain.Repositories;
 using MediatR;
 
@@ -17,7 +18,7 @@ namespace BloodDonationSystem.Application.Queries.GetDonorById
         {
             var donor = await _donorRepository.GetByIdAsync(request.Id);
 
-            if (donor == null) throw new ArgumentException("Doador não encontrado.");
+            if (donor == null) throw new NotFoundException($"O doador com o id '{request.Id}' não existe.");
 
             return donor;
         }
