@@ -9,7 +9,7 @@ namespace BloodDonationSystem.Application.Validators.Address
         {
 
             RuleFor(x => x.Number)
-                .GreaterThan(0).WithMessage("Número deve ser maior que 0.");
+                .GreaterThan(0).WithMessage("Número da residência deve ser maior que 0.");
 
             RuleFor(x => x.Cep)
                 .NotEmpty().WithMessage("CEP é obrigatório.")
