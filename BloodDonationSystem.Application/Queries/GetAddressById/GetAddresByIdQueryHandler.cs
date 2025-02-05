@@ -18,7 +18,7 @@ namespace BloodDonationSystem.Application.Queries.GetAddressById
 
             if (address == null)
             {
-                throw new NotFoundException($"O endereço com o id {request.Id} não foi encontrado");
+                throw new NotFoundException($"O endereço com o id '{request.Id}' não foi encontrado");
             }
 
             return address;

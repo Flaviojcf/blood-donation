@@ -1,5 +1,6 @@
 ﻿using BloodDonationSystem.Application.DTOs;
 using BloodDonationSystem.Application.Services;
+using BloodDonationSystem.Domain.Exceptions;
 using Newtonsoft.Json;
 
 namespace BloodDonationSystem.Infrastructure.ExternalServices.ViaCep
@@ -14,21 +15,21 @@ namespace BloodDonationSystem.Infrastructure.ExternalServices.ViaCep
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new ArgumentException("O CEP informado não foi encontrado.");
+                throw new NotFoundException("O CEP informado não foi encontrado.");
             }
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
             if (responseBody.Contains("erro"))
             {
-                throw new ArgumentException("O CEP informado não foi encontrado.");
+                throw new NotFoundException("O CEP informado não foi encontrado.");
             }
 
             var viaCepModel = JsonConvert.DeserializeObject<ViaCepResponse>(responseBody);
 
             if (viaCepModel == null)
             {
-                throw new ArgumentException("Não foi possível obter informações do CEP.");
+                throw new NotFoundException("Não foi possível obter informações do CEP.");
             }
 
             return new AddressDto

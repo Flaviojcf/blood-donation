@@ -4,11 +4,8 @@ namespace BloodDonationSystem.Domain.Validations
 {
     public class ErrorValidation
     {
-        public ErrorValidation()
-        {
-            TraceId = Guid.NewGuid().ToString();
-            Errors = [];
-        }
+        public string TraceId { get; private set; }
+        public List<ErrorDetails> Errors { get; private set; }
 
         public ErrorValidation(string message, HttpStatusCode status)
         {
@@ -16,9 +13,6 @@ namespace BloodDonationSystem.Domain.Validations
             Errors = [];
             AddError(message, status);
         }
-
-        public string TraceId { get; private set; }
-        public List<ErrorDetails> Errors { get; private set; }
 
         public class ErrorDetails(string message, HttpStatusCode status)
         {

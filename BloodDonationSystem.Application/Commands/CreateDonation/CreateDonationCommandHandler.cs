@@ -1,4 +1,5 @@
 ﻿using BloodDonationSystem.Domain.Entities;
+using BloodDonationSystem.Domain.Exceptions;
 using BloodDonationSystem.Domain.Repositories;
 using BloodDonationSystem.Domain.Services.Interfaces;
 using MediatR;
@@ -20,20 +21,16 @@ namespace BloodDonationSystem.Application.Commands.CreateDonation
 
         public async Task<Guid> Handle(CreateDonationCommand request, CancellationToken cancellationToken)
         {
+            var validationResult = await _donorValidationService.ValidateDonorForDonationAsync(request.DonorId);
 
-            if (!await _donorValidationService.IsDonorExistsAsync(request.DonorId))
+            if (!validationResult.IsValid)
             {
-                throw new ArgumentException("O doador informado não existe.");
+                throw new ValidationException($"Error: {string.Join("; ", validationResult.Errors)}");
             }
 
-            if (!await _donorValidationService.IsLegalForDonation(request.DonorId))
+            if (!_donationValidationService.ValidateDonationQuantity(request.QuantityML))
             {
-                throw new ArgumentException("O doador informado não está aptado para doar.");
-            }
-
-            if (!_donationValidationService.IsLegalForDonation(request.QuantityML))
-            {
-                throw new ArgumentException("O doador informado não está aptado para doar.");
+                throw new ValidationException("A quantidade para doação deve estar entre 420ml e 470ml.");
             }
 
             var donation = new Donation(request.QuantityML, request.DonorId);

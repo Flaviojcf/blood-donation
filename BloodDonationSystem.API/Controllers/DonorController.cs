@@ -19,34 +19,17 @@ namespace BloodDonationSystem.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            try
-            {
-                var getDonorByIdQuery = new GetDonorByIdQuery(id);
-                var donor = await _mediator.Send(getDonorByIdQuery);
-                if (donor == null)
-                {
-                    return NotFound();
-                }
-                return Ok(donor);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "Internal server error");
-            }
+            var getDonorByIdQuery = new GetDonorByIdQuery(id);
+            var donor = await _mediator.Send(getDonorByIdQuery);
+
+            return Ok(donor);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateDonorCommand createDonorCommand)
         {
-            try
-            {
-                var id = await _mediator.Send(createDonorCommand);
-                return CreatedAtAction(nameof(GetById), new { id }, createDonorCommand);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
+            var id = await _mediator.Send(createDonorCommand);
+            return CreatedAtAction(nameof(GetById), new { id }, createDonorCommand);
         }
     }
 }

@@ -20,14 +20,11 @@ namespace BloodDonationSystem.Application.Commands.CreateAddress
         }
         public async Task<Guid> Handle(CreateAddressCommand request, CancellationToken cancellationToken)
         {
-            if (!await _donorValidationService.IsDonorExistsAsync(request.DonorId))
-            {
-                throw new NotFoundException($"O doador com o id '{request.DonorId}' não existe.");
-            }
+            var validationResult = await _donorValidationService.ValidateCreateAddressForDonorAsync(request.DonorId);
 
-            if (await _addressRepository.IsDonorAlreadyHasAddressAsync(request.DonorId))
+            if (!validationResult.IsValid)
             {
-                throw new ValidationException($"O doador com o id '{request.DonorId}' já possui endereço cadastrado.");
+                throw new ValidationException($"Erro: {string.Join("; ", validationResult.Errors)}");
             }
 
             var addressDto = await _cepService.GetAddressByCepAsync(request.Cep);
