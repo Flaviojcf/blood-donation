@@ -36,6 +36,10 @@ namespace BloodDonationSystem.API.Middlewares
                     errorValidation = new ErrorValidation($"{ex.Message} {ex?.InnerException?.Message}", HttpStatusCode.NotFound);
                     context.Response.StatusCode = (int)HttpStatusCode.NotFound;
                     break;
+                case NotificationException:
+                    errorValidation = new ErrorValidation($"{ex.Message} {ex?.InnerException?.Message}", HttpStatusCode.BadRequest);
+                    context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    break;
                 case ValidationException validationEx:
                     errorValidation = new ErrorValidation(HttpStatusCode.BadRequest);
                     foreach (var error in validationEx.Errors)

@@ -50,13 +50,8 @@ namespace BloodDonationSystem.Application.Commands.CreateDonation
             }
             catch (Exception ex)
             {
-                // Log do erro
-                Console.WriteLine($"Erro ao publicar evento: {ex.Message}");
-                throw;
+                throw new NotificationException($"Erro ao publicar evento: {ex.Message}");
             }
-
-
-            donation.ClearDomainEvents();
 
             return donation.Id;
         }
