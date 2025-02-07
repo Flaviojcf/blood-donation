@@ -17,6 +17,7 @@ namespace BloodDonationSystem.Domain.Entities
         public BloodType BloodType { get; private set; }
         public RhFactorType RhFactorType { get; private set; }
         public int QuantityML { get; private set; }
+        public int MinQuantityML { get; private set; } = 1000;
 
         public void Update(int quantityML)
         {

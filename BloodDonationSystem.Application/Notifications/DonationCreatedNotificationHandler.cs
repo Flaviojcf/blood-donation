@@ -11,7 +11,6 @@ namespace BloodDonationSystem.Application.Notifications
     {
         private readonly IBloodStockRepository _bloodStockRepository;
         private readonly IDonorRepository _donorRepository;
-        private readonly int minQuantity = 1680;
         private readonly IEmailService _emailService;
 
         public DonationCreatedNotificationHandler(IBloodStockRepository bloodStockRepository, IDonorRepository donorRepository, IEmailService emailService)
@@ -45,9 +44,9 @@ namespace BloodDonationSystem.Application.Notifications
                 await _bloodStockRepository.SaveChangesAsync();
             }
 
-            if (bloodStock != null && bloodStock.QuantityML >= minQuantity)
+            if (bloodStock != null && bloodStock.QuantityML >= bloodStock.MinQuantityML)
             {
-                await _emailService.SendAsync(donor.Email, "Meta atingida!!", $"Graças a sua doação, atingimos a quantidade mínima de {minQuantity}ML para o estoque, obrigado! ");
+                await _emailService.SendAsync(donor.Email, "Meta atingida!!", $"Graças a sua doação, atingimos a quantidade mínima de {bloodStock.MinQuantityML}ML para o estoque, obrigado! ");
             }
         }
     }
