@@ -15,6 +15,10 @@ namespace BloodDonationSystem.Application.Validators.Donor
                 .NotEmpty().WithMessage("Email é obrigatório.")
                 .EmailAddress().WithMessage("Email deve ser um endereço válido.");
 
+            RuleFor(x => x.Password)
+                .NotEmpty().WithMessage("A senha é obrigatória.");
+
+
             RuleFor(x => x.BirthDate)
                 .NotEmpty().WithMessage("Data de nascimento é obrigatória.")
                 .LessThan(DateTime.Now).WithMessage("Data de nascimento deve ser menor que a data atual.");

@@ -26,7 +26,7 @@ namespace BloodDonationSystem.Application.Commands.CreateDonor
                 throw new ValidationException($"{string.Join("; ", validationResult.Errors)}");
             }
 
-            var donor = new Donor(request.FullName, request.Email, request.BirthDate, request.GenderType, request.Weight, request.BloodType, request.RhFactorType);
+            var donor = new Donor(request.FullName, request.Email, request.Password, request.BirthDate, request.GenderType, request.Weight, request.BloodType, request.RhFactorType);
 
             await _donorRepository.CreateAsync(donor);
 
