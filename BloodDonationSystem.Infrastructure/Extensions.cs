@@ -54,7 +54,7 @@ namespace BloodDonationSystem.Infrastructure
         {
             services.AddSendGrid(o =>
             {
-                o.ApiKey = configuration.GetValue<string>("ApiKey");
+                o.ApiKey = configuration.GetValue<string>("SendGrid:ApiKey");
             });
 
             services.AddScoped<IEmailService, SendGridService>();
