@@ -1,12 +1,10 @@
 ﻿using BloodDonationSystem.Application.Commands.CreateAddress;
 using BloodDonationSystem.Application.Queries.GetAddressById;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloodDonationSystem.API.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AddressController : ControllerBase

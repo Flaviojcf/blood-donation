@@ -29,6 +29,11 @@ namespace BloodDonationSystem.Infrastructure.Persistance.Repositories
             return await _bloodDonationDbContext.Donor.SingleOrDefaultAsync(x => x.Email == email);
         }
 
+        public async Task<Donor> GetByEmailAndPasswordAsync(string email, string password)
+        {
+            return await _bloodDonationDbContext.Donor.SingleOrDefaultAsync(x => x.Email == email && x.Password == password);
+        }
+
         public async Task<Donor> GetByIdAsync(Guid id)
         {
             return await _bloodDonationDbContext.Donor.Include(d => d.Address).Include(d => d.Donations).SingleOrDefaultAsync(x => x.Id == id);
