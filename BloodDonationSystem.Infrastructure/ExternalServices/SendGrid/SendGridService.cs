@@ -14,8 +14,8 @@ namespace BloodDonationSystem.Infrastructure.ExternalServices.SendGrid
         public SendGridService(ISendGridClient client, IConfiguration configuration)
         {
             _client = client;
-            _fromEmail = configuration.GetValue<string>("FromEmail") ?? "";
-            _fromName = configuration.GetValue<string>("FromName") ?? "";
+            _fromEmail = configuration.GetValue<string>("SendGrid:FromEmail") ?? "";
+            _fromName = configuration.GetValue<string>("SendGrid:FromName") ?? "";
         }
 
         public async Task SendAsync(string email, string subject, string message)

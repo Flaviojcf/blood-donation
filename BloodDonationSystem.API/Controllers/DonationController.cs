@@ -1,12 +1,14 @@
 ﻿using BloodDonationSystem.Application.Commands.CreateDonation;
 using BloodDonationSystem.Application.Queries.GetDonationById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloodDonationSystem.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class DonationController : ControllerBase
     {
         private readonly IMediator _mediator;

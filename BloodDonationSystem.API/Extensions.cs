@@ -3,6 +3,7 @@ using BloodDonationSystem.Application.Commands.CreateAddress;
 using BloodDonationSystem.Application.Validators.Address;
 using FluentValidation.AspNetCore;
 using MediatR;
+using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 
 namespace BloodDonationSystem.API
@@ -14,6 +15,7 @@ namespace BloodDonationSystem.API
             services.AddFilters();
             services.AddMediatR();
             services.IgnoreCycle();
+            services.AddSwaggerAuthentication();
             return services;
         }
 
@@ -44,6 +46,39 @@ namespace BloodDonationSystem.API
             services.AddControllers().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            });
+
+            return services;
+        }
+
+        private static IServiceCollection AddSwaggerAuthentication(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(option =>
+            {
+                option.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
+                option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter a valid token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    BearerFormat = "JWT",
+                    Scheme = "Bearer"
+                });
+                option.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] { }
+                    }
+                });
             });
 
             return services;

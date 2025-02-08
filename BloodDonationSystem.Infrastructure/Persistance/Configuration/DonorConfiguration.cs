@@ -18,6 +18,7 @@ namespace BloodDonationSystem.Infrastructure.Persistance.Configuration
 
             builder.Property(d => d.FullName).IsRequired();
             builder.Property(d => d.Email).IsRequired();
+            builder.Property(d => d.Password).IsRequired();
             builder.Property(d => d.BirthDate).IsRequired();
             builder.Property(d => d.GenderType).IsRequired();
             builder.Property(d => d.Weight).IsRequired();
