@@ -1,6 +1,7 @@
 ﻿using BloodDonationSystem.Application.Commands.CreateDonor;
 using BloodDonationSystem.Application.Queries.GetDonorById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloodDonationSystem.API.Controllers
@@ -17,6 +18,7 @@ namespace BloodDonationSystem.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetById(Guid id)
         {
             var getDonorByIdQuery = new GetDonorByIdQuery(id);
