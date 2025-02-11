@@ -21,7 +21,8 @@ namespace BloodDonationSystem.Application.Validators.Donor
 
             RuleFor(x => x.BirthDate)
                 .NotEmpty().WithMessage("Data de nascimento é obrigatória.")
-                .LessThan(DateTime.Now).WithMessage("Data de nascimento deve ser menor que a data atual.");
+                .Must(BeAtLeast16YearsOld)
+                .WithMessage("A pessoa deve ter pelo menos 16 anos de idade.");
 
             RuleFor(x => x.GenderType)
                 .IsInEnum().WithMessage("Tipo de gênero inválido.");
@@ -35,5 +36,14 @@ namespace BloodDonationSystem.Application.Validators.Donor
             RuleFor(x => x.RhFactorType)
                 .IsInEnum().WithMessage("Fator Rh inválido.");
         }
+
+        private bool BeAtLeast16YearsOld(DateTime birthDate)
+        {
+            var today = DateTime.Today;
+            var age = today.Year - birthDate.Year;
+
+            return age >= 16;
+        }
     }
+
 }
